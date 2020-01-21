@@ -1,0 +1,1112 @@
+-- WidgetLib
+
+-- Use this function to perform your initial setup
+function setup()
+    displayMode(STANDARD)
+    print("Hello WidgetLib!")
+    
+    
+    --[[
+    local sqrt3=math.sqrt(3)
+    print(sqrt3)
+    ]]
+    
+    oldClose = close -- Make a function that does the same thing as the originl close function
+    close = function() -- Must be afte rsetting oldClose (not as a usual function declaration), otherwise oldClose won't work
+        print("I'm not closing! You can put code here")
+        onClose()
+        -- oldClose() -- Uncomment this when you want the program to close after the action.
+    end
+    --[[
+    function onClose()
+    alert("You ca do something before we close")
+    oldClose()
+end
+    ]]
+    testDelayButton = Button("Test Delay")
+    testDelayButton.action = function() testDelay() end
+    
+    testLoHiPairButton = Button("Test LoHiPair")
+    testLoHiPairButton.action = function() testLoHiPair() end
+    
+    testingTween = false
+    testTweenButton = Button("Test Tween")
+    testTweenButton.action = function() testTween() end
+    
+    testingAdvance = false
+    testAdvanceButton = Button("Test Advance")
+    testAdvanceButton.action = function() testAdvance() end
+    
+    testPrintFmtButton = Button("Test PrintFmt")
+    testPrintFmtButton.action = function() testPrintFmt() end
+    
+    testingImageText= false
+    testImageTextButton = Button("Test ImageText")
+    testImageTextButton.action = function() testImageText() end
+    
+    testingScrollText = false
+    testScrollTextButton = Button("Test ScrollText")
+    testScrollTextButton.action = function() testScrollText() end
+    
+    testingMessagePanel = false
+    testMessagePanelButton = Button("Test MessagePanel")
+    testMessagePanelButton.action = function() testMessagePanel() end
+    
+    testingFloatingMessagePanel = false
+    testFloatingMessagePanelButton = Button("Test Floating MessagePanel")
+    testFloatingMessagePanelButton.action = function() testFloatingMessagePanel() end
+    
+    testMeshButtonButton = Button("Test MeshButton")
+    testMeshButtonButton.action = function() testMeshButton() end
+    
+    testSwitchToggleControlButton = Button("Test SwitchToggleControl")
+    testSwitchToggleControlButton.action = function() testSwitchToggleControl() end
+    
+    testMeshCircleButton = Button("Test MeshCircle")
+    testMeshCircleButton.action = function() testMeshCircle() end
+    
+    testTextReaderButton = Button("Test TextReader")
+    testTextReaderButton.action = function() testTextReader() end
+    
+    exitButton = Button("Exit")
+    exitButton.action = function() close() end
+    
+    testHexagonButton = Button("Test Hexagon")
+    testHexagonButton.action = function() testHexagon() end
+    
+    testSelectDialogButton = Button("Test SelectDialog")
+    testSelectDialogButton.action = function() testSelectDialog() end
+    
+    testSaveCancelDialogButton = Button("Test SaveCancelDialog")
+    testSaveCancelDialogButton.action = function() testSaveCancelDialog() end
+    
+    -- list of items
+    testLoadDeleteDialogButton = Button("Test LoadDeleteDialog")
+    testLoadDeleteDialogButton.action = function() testLoadDeleteDialog() end
+    -- single item
+    testLoadDeleteMPButton = Button("Test LoadDeleteMP")
+    testLoadDeleteMPButton.action = function() testLoadDeleteMP() end
+    
+end
+
+
+function onClose()
+    alert("You can do something before we close")
+    oldClose()
+end
+
+-- This function gets called once every frame
+floaterCount=0
+function draw()
+    -- This sets a dark background color
+    -- background(40, 40, 50)
+    if testingLoadDeleteMP then
+        drawLoadDeleteMP()
+        return
+    end
+    if testingLoadDeleteDialog then
+        drawLoadDeleteDialog()
+        return
+    end
+    if testingSaveCancelDialog then
+        drawSaveCancelDialog()
+        return
+    end
+    
+    if testingSelectDialog then
+        drawSelectDialog()
+        return
+    end
+    if testingTextReader then
+        drawTextReader()
+        return
+    end
+    if testingFloatingMessagePanel then
+        drawFloatingMessagePanel()
+        testFloatingMessagePanel=false
+        return
+    end
+    if testingSwitchToggleControl then
+        drawSwitchToggleControl()
+        return
+    end
+    if testingMeshButton then
+        drawMeshButton()
+        return
+    end
+    if testingHexagon then
+        drawHexagon()
+        return
+    end
+    if testingMeshCircle then
+        drawMeshCircle()
+        return
+    end
+    if testingTween then
+        drawTween()
+        return
+    end
+    if testingAdvance then
+        drawAdvance()
+        return
+    end
+    if testingImageText then
+        drawImageText()
+        return
+    end
+    if testingScrollText then
+        font("CourierNewPSMT")
+        drawScrollText()
+        return
+    end
+    if testingMessagePanel then
+        drawMessagePanel()
+        return
+    end
+    -- This sets the line thickness
+    strokeWidth(5)
+    x= WIDTH/2 - 150
+    y=HEIGHT/2 + 350
+    
+    
+    y = y - 50
+    testLoHiPairButton.pos = vec2(x,y)
+    testLoHiPairButton:draw()
+    
+    y = y - 50
+    testTweenButton:draw()
+    testTweenButton.pos = vec2(x,y)
+    if testingTween then
+        testingTween = false
+        drawTween()
+    end
+    
+    y = y - 50
+    testAdvanceButton:draw()
+    testAdvanceButton.pos = vec2(x,y)
+    
+    
+    y = y - 50
+    
+    testPrintFmtButton.pos = vec2(x,y)
+    testPrintFmtButton:draw()
+    
+    y = y - 50
+    
+    testImageTextButton.pos = vec2(x,y)
+    testImageTextButton:draw()
+    
+    y = y - 50
+    testScrollTextButton.pos = vec2(x,y)
+    testScrollTextButton:draw()
+    
+    y = y - 50
+    testMessagePanelButton.pos = vec2(x,y)
+    testMessagePanelButton:draw()
+    
+    y = y - 50
+    testFloatingMessagePanelButton.pos = vec2(x,y)
+    testFloatingMessagePanelButton:draw()
+    y = y - 50
+    testMeshButtonButton.pos = vec2(x,y)
+    testMeshButtonButton:draw()
+    
+    y = y - 50
+    testSwitchToggleControlButton.pos = vec2(x,y)
+    testSwitchToggleControlButton:draw()
+    
+    y = y - 50
+    testMeshCircleButton.pos = vec2(x,y)
+    testMeshCircleButton:draw()
+    
+    y = y - 50
+    testTextReaderButton.pos = vec2(x,y)
+    testTextReaderButton:draw()
+    
+    y = y - 50
+    exitButton.pos = vec2(x,y)
+    exitButton:draw()
+    
+    -- reset for 2nd colun
+    x= WIDTH/2 + 150
+    y=HEIGHT/2 + 300
+    
+    testHexagonButton.pos = vec2(x,y)
+    testHexagonButton:draw()
+    
+    y = y - 50
+    testSelectDialogButton.pos = vec2(x,y)
+    testSelectDialogButton:draw()
+    
+    y = y - 50
+    testSaveCancelDialogButton.pos = vec2(x,y)
+    testSaveCancelDialogButton:draw()
+    
+    y = y - 50
+    testLoadDeleteDialogButton.pos = vec2(x,y)
+    testLoadDeleteDialogButton:draw()
+    
+    y = y - 50
+    testLoadDeleteMPButton.pos = vec2(x,y)
+    testLoadDeleteMPButton:draw()
+    
+end
+
+function touched(touch)
+    if testingLoadDeleteMP then
+        if loadDeleteMP1.active then
+            loadDeleteMP1:touched(touch)
+            return
+        end
+    end
+    if testingLoadDeleteDialog then
+        if loadDeleteDialog1.active then
+            loadDeleteDialog1:touched(touch)
+            -- loadDeleteDialog1.msgPanel:touched(touch)
+            return
+        end
+    end
+    if testingSaveCancelDialog then
+        if saveCancelDialog1.active then
+            saveCancelDialog1:touched(touch)
+            return
+        end
+    end
+    if testingSelectDialog then
+        if selectDialog1.active then
+            selectDialog1:touched(touch)
+            return
+        end
+        if selectDialog2.active then
+            selectDialog2:touched(touch)
+            return
+        end
+        if selectDialog3.active then
+            selectDialog3:touched(touch)
+            return
+        end
+        selectDialogTouched(touch)     
+    end
+    
+    if testingScrollText then
+        scrollText1:touched(touch)
+        pgupButton:touched(touch)
+        pgdnButton:touched(touch)
+        
+        topButton:touched(touch)
+        
+        endButton:touched(touch)
+        
+        return
+    end
+    if testingMessagePanel then
+        messagePanel1:touched(touch)
+        
+        testingMessagePanel=false
+        return
+    end
+    if testingTextReader then
+        reader1:touched(touch)
+        return
+    end
+    if testingMeshButton then
+        meshButton1:touched(touch)
+        meshButton2:touched(touch)
+        -- testingMeshButton=false
+        return
+    end
+    if testingImageText then
+        imageTextButton1:touched(touch)
+        imageTextButton2:touched(touch)
+        -- testingMeshButton=false
+        return
+    end
+    if testingSwitchToggleControl then
+        testSTC1:touched(touch)
+        return
+        
+    end
+    
+    testDelayButton:touched(touch)
+    testLoHiPairButton:touched(touch)
+    testTweenButton:touched(touch)
+    testPrintFmtButton:touched(touch)
+    testAdvanceButton:touched(touch)
+    testImageTextButton:touched(touch)
+    testScrollTextButton:touched(touch)
+    testMessagePanelButton:touched(touch)
+    testFloatingMessagePanelButton:touched(touch)
+    testMeshButtonButton:touched(touch)
+    testSwitchToggleControlButton:touched(touch)
+    testMeshCircleButton:touched(touch)
+    testTextReaderButton:touched(touch)
+    exitButton:touched(touch)
+    testHexagonButton:touched(touch)
+    testSelectDialogButton:touched(touch)
+    testSaveCancelDialogButton:touched(touch)
+    testLoadDeleteDialogButton:touched(touch)
+    testLoadDeleteMPButton:touched(touch)
+end
+
+function testLoadDeleteMP()
+    local msg="Load or delete item:"
+    local itemName = "TheItem"
+    loadDeleteMP1 = LoadDeleteMP(msg,itemName)
+    loadDeleteMP1.loadAction=function ()alert("Load Action") end
+    loadDeleteMP1.deleteAction=function( ) alert("Delete Action") end
+    loadDeleteMP1.active=true
+    testingLoadDeleteMP=true
+end
+
+function drawLoadDeleteMP()
+    background(lightestslateblueColor)
+    
+    loadDeleteMP1:draw()  
+end
+
+
+function testLoadDeleteDialog()
+    local itemTable = {
+    Button("Item One"),
+        Button("Item Two"),
+        Button("Item Three"),
+    }
+    
+    --[[
+    local msg="Load or delete item:"
+    local itemName = "TheItem"
+    loadDeleteMP = LoadDeleteMP(msg,itemName)
+    loadDeleteMP.loadAction=function ()alert("Load Action") end
+    loadDeleteMP.deleteAction=function( ) alert("Delete Action") end
+    loadDeleteMP.active=false
+      ]]
+    
+    loadDeleteDialog1 = LoadDeleteDialog(itemTable)
+    loadDeleteDialog1.loadDeleteMsg="Load or delete item:"
+    loadDeleteDialog1.loadAction=function ()alert("Load Action - "..loadDeleteDialog1.selectedItem) end
+    loadDeleteDialog1.deleteAction=function( ) alert("Delete Action") end
+    loadDeleteDialog1.active=true
+    
+    testingLoadDeleteDialog=true
+end
+
+
+
+
+
+function drawLoadDeleteDialog()
+    background(lightestslateblueColor)
+    loadDeleteDialog1:draw()  
+
+end
+
+function testSaveCancelDialog()
+    print("testSaveCancelDialog")
+    saveCancelDialog1=SaveCancelDialog("saveMe","Save your thang:","myext")
+    saveCancelDialog1.active=true
+    saveCancelDialog1.action=function() alert("saveCancelDialog action has been invoked!") end
+    testingSaveCancelDialog=true
+end
+
+function drawSaveCancelDialog()
+    background(lightestslateblueColor)
+    saveCancelDialog1:draw()  
+end
+
+function testSelectDialog()
+    diamTable= {
+    "11 Points",
+    "15 Points",
+    "19 Points"
+    }
+        local txt=diamTable[3]
+    selectDialog1= SelectDialog(diamTable, txt)
+    selectDialog1.action = function(selected) setBoardDiameter(selected) end
+    selectDialog1.minWidth=80
+
+    diamSettingButton=Button(txt)
+
+    diamSettingButton.action = function() resetSelectDialog(1) end
+    
+    handicapTable={
+    "None",
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+    }
+        local txt=handicapTable[1]
+    selectDialog2= SelectDialog(handicapTable,txt)
+    selectDialog2.action = function(selected) setHandicap(selected) end
+
+    handicapSettingButton=Button(txt)
+    selectDialog2.minWidth=50
+    handicapSettingButton.action = function() resetSelectDialog(2) end
+    handicapSettingButton.minWidth=80
+    
+    playerModeTable ={
+    1,
+    2,
+    3,
+    4,
+    5
+    }
+    playerModeDisplayTable= {
+    "Player vs White AI",
+    "Player vs Black AI",
+    "Black AI vs White AI",
+    "Player vs Player",
+    "Manual Play Mode"
+    }
+    
+    local txt=playerModeTable[1]
+    print("selected txt b4 costructor:")
+    print(txt)
+    selectDialog3= SelectDialog(playerModeTable, txt, playerModeDisplayTable)
+    selectDialog3.action = function(selected) setPlayerMode(selected) end
+
+    playerModeSettingButton=Button(playerModeDisplayTable[txt])
+    selectDialog3.minWidth=150
+    playerModeSettingButton.action = function() resetSelectDialog(3) end
+    playerModeSettingButton.minWidth=150
+    
+    
+    testingSelectDialog=true
+end
+
+function setBoardDiameter(diamString)
+    diamSettingButton.displayName=diamString
+end
+
+function setHandicap(handiStr)
+    handicapSettingButton.displayName=handiStr
+end
+
+function setPlayerMode(modeKey)
+    local modeDisplay=playerModeDisplayTable[modeKey]
+    playerModeSettingButton.displayName=modeDisplay
+end
+
+
+
+function resetSelectDialog(test)
+    testSelectDialog()
+    if test == 1 then
+        selectDialog1.active=true
+    elseif test == 2 then
+        selectDialog2.active=true
+    else
+        selectDialog3.active=true
+    end
+end
+
+function drawSelectDialog()
+    background(lightestslateblueColor)
+    local x=WIDTH/2
+    local y=HEIGHT/2
+    y = y + 100
+    fill(blackColor)
+    text("Board Diameter:", x-175, y)
+    diamSettingButton.pos=vec2(x,y)
+    diamSettingButton:draw()
+    selectDialog1.y=y
+    selectDialog1:draw()
+    
+    y = y - 100
+    x = x - 25
+    fill(blackColor)
+    text("Handicap:", x-125, y)
+    handicapSettingButton.pos=vec2(x,y)
+    handicapSettingButton:draw()
+    selectDialog2.y=y
+    selectDialog2.x=x
+    selectDialog2:draw()
+    
+    y = y - 100
+    x = x + 50
+    fill(blackColor)
+    text("Player Mode:", x-200, y)
+    playerModeSettingButton.pos=vec2(x,y)
+    playerModeSettingButton:draw()
+    selectDialog3.y=y
+    selectDialog3.x=x
+    selectDialog3:draw()
+    
+end
+
+function selectDialogTouched(touch)
+    diamSettingButton:touched(touch)
+    selectDialog1:touched(touch)
+        handicapSettingButton:touched(touch)
+    selectDialog2:touched(touch)
+    playerModeSettingButton:touched(touch)
+    selectDialog3:touched(touch)
+    
+
+end
+
+function testTextReader()
+    print("testTextReader")
+    t=createRandomTextTable(200,160)
+        --[[
+    (t)
+
+    for i=1,#t do
+    print(t[i])
+end
+    ]]
+    
+    reader1=TextReader(t)
+    if true then
+        if true then
+            -- default settings
+        else
+            reader1.centeredText=true
+        end
+    else
+        reader1.hasBorder=false
+        reader1.hasButtons=false
+        reader1.hasEnclosingPanel=false
+    end
+    testingTextReader=true
+end
+
+ALPHA="abcdefghijklmnopwrstuvwxyzeeueeeeerrrrrrtttttttaaaaaaaaatheniiiiiiiuuuooooophnmccdssssss"
+SEPARATERS=".    .,  ;              .,    "
+WORDLENTH="233444555667789"
+function createRandomTextTable(lines,lineLength)
+    local s=""
+    local l=""
+    local t={}
+    math.randomseed(os.time())
+    --[[
+    if #l >lineLength -4 then
+    -- print(l)
+    table.insert(t,l)
+    l=""
+end
+    ]]
+    local len =0
+    sanity=0
+    for i=1,lines do
+        print(i)
+        while true do
+            sanity = sanity + 1
+            -- print(sanity)
+            if sanity>10000 then
+                goto alldone
+            end
+            local pos = math.random(#WORDLENTH)
+            local wlen = string.sub(WORDLENTH,pos,pos)
+            -- print (wlen)
+            for i=1,wlen do
+                pos = math.random(#ALPHA)
+                s=s..string.sub(ALPHA,pos,pos)
+            end
+            -- print(s)
+            l=l..s
+            s=""
+            pos = math.random(#SEPARATERS)
+            local sep=string.sub(SEPARATERS,pos,pos)
+            l=l..sep
+            if sep ~= " "then
+                l=l.." "
+            end
+            len=len +#l
+            if len >lineLength-4 then
+                table.insert(t,l)
+                l=""
+                len=0
+                goto zbreak
+            end
+            
+        end
+        ::zbreak::
+    end
+    ::alldone::
+    --[[
+    for i=1,#t do
+    print(t[i])
+end
+    ]]
+    return t
+end
+
+function testSwitchToggleControl()
+    local x = WIDTH/2
+    local y= HEIGHT/2
+    testSTC1=SwitchToggleControl(x,500,false)
+    testSTC1.onChange = function(switchOn) switchChanged(switchOn) end
+    testingSwitchToggleControl = true
+end
+
+function drawSwitchToggleControl()
+    background(40, 40, 50)
+    testSTC1:draw()
+    testingTextReader=true
+end
+
+function switchChanged(switchOn)
+    if switchOn then
+        alert("You flipped the switch ON!")
+    else
+        alert("You flipped the switch OFF!")
+    end
+end
+
+function testHexagon()
+    local x = 300
+    local y= 50
+    local len = 300-- length of one side of the eqilateral hexagon created
+    local c=wheatColor
+    
+    hex1=Hexagon(x,y, len, c)
+    testingHexagon= true
+end
+
+function testMeshCircle()
+    local x = WIDTH/2
+    local y= HEIGHT/2
+    local diam = 44
+    meshCircle1=MeshCircle(x,y, diam)
+    y = y + 48
+    whStone1=WhiteStone(x,y, diam )
+    y = y + 48
+    blkStone1=BlackStone(x,y, diam)
+    y = y + 48
+    blueBead1=BlueBead(x,y, diam - 4)
+    y = y + 48
+    yellowBead1=YellowBead(x,y, diam - 4)
+    
+    testingMeshCircle = true
+    
+end
+
+function drawHexagon()
+    background(darkslateblueColor)
+    
+    pushStyle()
+    
+    hex1:draw()
+    
+    popStyle()
+end
+
+function drawMeshCircle()
+    background(navajowhiteColor)
+    local x = WIDTH/2
+    local y = HEIGHT/2
+    local w = 48
+    local h = 48
+    pushStyle()
+    local starty  = y
+    strokeWidth(2)
+    stroke(darkGrayColor)
+    
+    fill(blackColor)
+    text("mesh circle baby",x,  y + 100)
+    text("mesh circle baby",x,  y + 120)
+    text("mesh circle baby",x,  y + 140)
+    text("mesh circle baby",x,  y + 160)
+    text("mesh circle baby",x,  y + 180)
+    text("mesh circle baby",x,  y + 200)
+    text("mesh circle baby",x,  y + 220)
+    
+    
+    rect(x,y,w,h)
+    y = y + h-1
+    fill(orangeColor)
+    rect(x,y,w,h)
+    
+    -- translate(x,y)
+    meshCircle1:draw()
+    whStone1:draw()
+    blkStone1:draw()
+    blueBead1:draw()
+    yellowBead1:draw()
+    --[[
+    mc1 = MeshCircle(x,y, 44)
+    mc1:draw()
+    ]]
+    popStyle()
+end
+
+
+function testMeshButton()
+    local x = WIDTH/2
+    local y= HEIGHT/2
+    local w = 200
+    local h = 60
+    meshButton1=MeshButton("test mesh",x,y,w,h)
+    meshButton1.action=function() alert("meshing around success!") end
+    
+    --[[
+    self.color1 = color(255, 255, 255, 96)
+    self.color2 = color(128,128,128,32)
+    self.presscolor1 = color(192, 224, 224, 128)
+    self.presscolor2 = color(96, 192, 224, 128)
+    
+    ]]
+    y = y - 70
+    w = w + 40
+    meshButton2=MeshButton("test color mesh",x,y,w,h)
+    c1 = color(255, 100, 100, 96)
+    c2 = color(0,128,100,32)
+    pc1 = color(192, 224, 0, 128)
+    pc2 = color(96, 192, 0, 128)
+    c1=lightlightGrayColor
+    c2=lightGrayColor
+    pc1=lightGrayColor
+    pc2=grayColor
+    c1=antiquewhiteMeshColor
+    c2=tanMeshColor
+    pc1=rosybrownMeshColor
+    pc2=brownMeshColor
+    c1=whiteMeshColor
+    c2=ivoryMeshColor
+    pc1=linenMeshColor
+    pc2=antiquewhiteMeshColor
+    c1 = ivoryMeshColor
+    c2 = lightslateblueColor
+    pc1 = slateblueColor
+    pc2 = darkslateblueColor
+    meshButton2:setColors(c1,c2,pc1,pc2)
+    meshButton2.textColor=blackColor
+    meshButton2.action=function() alert("color that mesh!") end
+    testingMeshButton = true
+end
+
+function testFloatingMessagePanel()
+    print("testFloatingMessagePanel()")
+    floatingMessagePanel1 = MessagePanel("This is a floater!")
+    -- floatingMessagePanel1.active =true
+    floatingMessagePanel1.msgType=MESSAGE_PANEL_FLOATING
+    testingFloatingMessagePanel=true
+    floatingMessagePanel1.active=true
+    
+end
+
+function drawFloatingMessagePanel()
+    background(40, 40, 50)
+    -- tween( 1.0, self.c1, { x = destX } )
+    local destX=floatingMessagePanel1.x + 8
+    tween( 2.0, floatingMessagePanel1, {x=destX}, tween.easing.linear,  function() endFloatingMessagePanel() end )
+    
+    floatingMessagePanel1:draw()
+end
+
+function endFloatingMessagePanel()
+    print("end floating message panel")
+    floatingMessagePanel1.active=false
+    -- testingFloatingMessagePanel=false
+end
+
+function testMessagePanel()
+    print("testMessagePanel()")
+    
+    messagePanel1 = MessagePanel("Are you OK with the Message Panel, now that I've mucked about?")
+    messagePanel1.active =true
+    testingMessagePanel=true
+end
+
+function drawMessagePanel()
+    -- background(40, 40, 50)
+    local x = WIDTH/2
+    local y = HEIGHT/2
+    local w = 45
+    local h = 45
+    
+    --[[
+    imageTextButton1.pos=vec2(x,y)
+    imageTextButton1.w=w
+    imageTextButton1.h=h
+    ]]
+    messagePanel1:draw()
+end
+
+function testScrollText()
+    print("testScrollText()")
+    -- alert("test ScrollText")
+    testingScrollText = true
+    local x = WIDTH/6
+    local y=HEIGHT/10 -3
+    local w=WIDTH*2/3
+    local h=HEIGHT*3/4
+    local logText = ""
+    local logTextTable = {}
+    max = 200
+    for i = 1, max do
+        local s = "This is a text entry - let's call it #"..i
+        table.insert(logTextTable, s)
+        --[[
+        local pm = "\nThis could be a page marker"
+        table.insert(logTextTable, pm)
+    end
+        ]]
+    end
+    logText = table.concat(logTextTable, "\n")
+    scrollText1 = ScrollText(logText,x ,y, w, h)
+    -- scrollText1.numLines = #logTextTable
+    
+    pgupButton = Button("pgup")
+    pgupButton.action = function() scrollText1:pgUp()   end
+    pgdnButton = Button("pgdn")
+    pgdnButton.action = function() scrollText1:pgDn()   end
+    
+    topButton = Button("top")
+    topButton.action = function() scrollText1:gotoTop()   end
+    
+    endButton = Button("end")
+    endButton.action = function() scrollText1:gotoEnd()   end
+    
+    
+end
+
+
+function testImageText()
+    print("testImageText()")
+    
+    imageTextButton1 = ImageTextButton("Documents:menu_icon","Documents:menu_icon",0,0, "menu")
+    imageTextButton2 = ImageTextButton("Documents:undo_icon","Documents:undo_icon",0,0, "menu")
+    imageTextButton2.disabled=true
+    testingImageText=true
+end
+
+function drawMeshButton()
+    background(40, 40, 50)
+    background(lightestslategrayColor)
+    meshButton1:draw()
+    meshButton2:draw()
+end
+function testAdvance()
+    -- Grow move to next square
+    
+    -- c1 = Circle( 0,0,42)
+    -- c2 = Circle(0,0,4)
+    -- c3 = Circle( 0,0,42)
+    --[[
+    tween( 1.0, self.c1, { x = destX } )
+    tween( 1.0, self.c2, { x = destX }, tween.easing.quadInOut )
+    tween( 1.0, self.c3, { x = destX }, tween.easing.bounceOut)
+    ]]
+    
+    -- tween( 1.0, c1, { y = y + 44  }, tween.easing.bounceOut)
+    testingAdvance= true
+    createAdvanceImage=true
+end
+function drawTextReader()
+    -- print("drawTextReadee")
+    background(darkslategrayColor)
+    
+    reader1:draw()
+end
+function drawImageText()
+    background(40, 40, 50)
+    background(ivoryMeshColor)
+    background(lightslategrayColor)
+    local x = WIDTH/2
+    local y = HEIGHT/2
+    local w = 45
+    local h = 45
+    imageTextButton1.pos=vec2(x,y)
+    imageTextButton1.w=w
+    imageTextButton1.h=h
+    imageTextButton1:draw()
+    y = y - 70
+    imageTextButton2.pos=vec2(x,y)
+    imageTextButton2.w=w
+    imageTextButton2.h=h
+    imageTextButton2:draw()
+    
+end
+function drawScrollText()
+    background(40, 40, 50)
+    x= WIDTH/2 - 200
+    y= HEIGHT - 75
+    
+    topButton.pos = vec2(x,y)
+    topButton:draw()
+    --[[
+    ]]
+    x = x + 70
+    pgupButton.pos = vec2(x,y)
+    pgupButton:draw()
+    x = x + 70
+    pgdnButton.pos = vec2(x,y)
+    pgdnButton:draw()
+    
+    
+    x = x + 70
+    endButton.pos = vec2(x,y)
+    endButton:draw()
+    
+    
+    scrollText1:draw()
+end
+
+function testPrintFmt()
+    s  = "just a string"
+    -- printFmt("some number: %d. some string:", 17)
+end
+
+function drawAdvance()
+    background(40, 40, 50)
+    local x = WIDTH/2
+    local y = HEIGHT/2
+    local w = 45
+    local h = 45
+    pushStyle()
+    local starty  = y
+    strokeWidth(2)
+    stroke(darkGrayColor)
+    fill(redColor)
+    rect(x,y,w,h)
+    destY = y + 22
+    y = y + h-1
+    fill(orangeColor)
+    rect(x,y,w,h)
+    fill(whiteColor)
+    
+    -- return
+    fill(whiteColor)
+    x = x + 22
+    y = starty + 22
+    if createAdvanceImage then
+        createAdvanceImage=false
+        advC1 = Circle( x,y,42)
+        destY = y + 44
+        -- tween( 1.0, c1, { y = destY }, tween.easing.bounceOutadvC
+        -- tween( 3.0, c1, { x = destY}
+        -- tween( 3.0, advC1, {size = 100},  tween.easing.linear)
+        tween( 0.30, advC1, {y = destY},  tween.easing.linear)
+    end
+    advC1:draw()
+    if true then
+        return
+    end
+    -- Utilities:delay(3000)
+    x = x - 22
+    y = y  - 22
+    y  = y - 75
+    strokeWidth(2)
+    stroke(darkGrayColor)
+    fill(redColor)
+    rect(x,y,w,h)
+    fill(whiteColor)
+    x = x + 22
+    y = y  + 22
+    c3.x= x
+    c3.y =y
+    -- c1:draw()
+    c2:draw()
+    -- c3:draw()
+    
+    popStyle()
+    
+end
+
+function testTween()
+    -- Grow in size
+    
+    c1 = Circle( 0,0,42)
+    c2 = Circle(0,0,4)
+    c3 = Circle( 0,0,42)
+    local x = WIDTH/2
+    local y = HEIGHT/2 -72
+    mc1 = MeshCircle(x,y,20)
+    mc1.tweening=true
+    --[[
+    
+    tween( 0.5, c1, {size = 4}, l,
+    function()
+    print("tween 1 finished")
+end )
+    t2 =  tween( 1.5, c2, {size = 42}, l,
+    function() print("tween 2 finished") end )
+    -- tween.sequence( t1, t2)
+    
+    
+    t3 =   tween( 1.5, c3, {size = 0}, l,
+    function() print("tween t3 finished") end )
+    ]]
+    local destX = x+100
+    tween( 1.5, mc1, {x=destX,diam=100}, tween.easing.linear)
+    -- tween.sequence( t2, t3)
+    testingTween = true
+end
+
+function drawTween()
+    background(40, 40, 50)
+    local x = WIDTH/2
+    local y = HEIGHT/2
+    local w = 45
+    local h = 45
+    pushStyle()
+    strokeWidth(2)
+    stroke(darkGrayColor)
+    fill(redColor)
+    rect(x,y,w,h)
+    fill(whiteColor)
+    x = x + 22
+    y = y + 22
+    c1.x = x
+    c1.y = y
+    c2.x= x
+    c2.y =y
+    -- c1:draw()
+    
+    -- Utilities:delay(3000)
+    x = x - 22
+    y = y  - 22
+    y  = y - 75
+    strokeWidth(2)
+    stroke(darkGrayColor)
+    fill(redColor)
+    rect(x,y,w,h)
+    fill(whiteColor)
+    x = x + 22
+    y = y  + 22
+    c3.x= x
+    c3.y =y
+    -- c1:draw()
+    c2:draw()
+    -- c3:draw()
+    x = x - 22
+    y = y  - 22
+    
+    mc1:draw()
+    
+    popStyle()
+    
+end
+
+function testDelay()
+    print("Test 3000 ms")
+    Utilities:delay(3000)
+    print("delay is done")
+end
+
+function testLoHiPair()
+    level1South = LoHiPair(1, 13)
+    level1East = LoHiPair(13, 25)
+    level1North = LoHiPair(25, 37)
+    level1West = LoHiPair(37, 1)
+    
+    
+    print (level1South.lo)
+    print (level1South.hi)
+    
+    print (level1East.lo)
+    print (level1East.hi)
+    
+    print (level1North.lo)
+    print (level1North.hi)
+    
+    
+    print (level1West.lo)
+    print (level1West.hi)
+    
+    
+end
